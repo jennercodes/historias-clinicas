@@ -151,12 +151,12 @@ integridad de datos (RNF03 — validaciones + guardado atómico), auth (RNF04), 
 - [x] Datos semilla: usuario admin por defecto, especialidades base.
 - [x] **Entregable:** los datos sobreviven al cierre de la app.
 
-### Fase 4 — Servicios / lógica
-- [ ] `AuthService.login(usuario, clave)` (RF01).
-- [ ] `BusquedaService` por DNI y por nombre/apellidos parcial (RF07).
-- [ ] `AtencionService.registrar(...)` y `atencionesDelDia(medico, fecha)` (RF06, RF08).
-- [ ] `ReporteService.porEspecialidadYRango(esp, desde, hasta)` (RF09).
-- [ ] **Entregable:** lógica probada desde un `main` de consola antes de la UI.
+### Fase 4 — Servicios / lógica ✅
+- [x] `AuthService.login(usuario, clave)` (RF01).
+- [x] `BusquedaService` por DNI y por nombre/apellidos parcial (RF07).
+- [x] `AtencionService.registrar(...)` y `atencionesDelDia(medico, fecha)` (RF06, RF08).
+- [x] `ReporteService.porEspecialidadYRango(esp, desde, hasta)` (RF09).
+- [x] **Entregable:** lógica probada desde un `main` de consola antes de la UI.
 
 ### Fase 5 — Interfaz Swing
 - [ ] `LoginFrame` → `MenuPrincipalFrame` (barra de menú con navegación, RF02).
