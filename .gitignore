@@ -1,0 +1,30 @@
+# Compilados / build
+target/
+*.class
+
+# Datos de runtime generados por la app
+data/
+*.dat
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse / NetBeans
+.classpath
+.project
+.settings/
+nbproject/private/
+build/
+
+# Claude Code (configuracion local de la maquina)
+.claude/settings.local.json
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
