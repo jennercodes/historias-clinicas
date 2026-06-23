@@ -12,8 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.LocalDate;
 
-// Gestion de pacientes (RF03) con busqueda por nombre (RF07).
-public class PacientesFrame extends JFrame {
+// Gestion de pacientes (RF03) con busqueda por nombre (RF07). Panel del dashboard.
+public class PacientesPanel extends JPanel {
 
     private final transient Contexto contexto;
 
@@ -36,18 +36,19 @@ public class PacientesFrame extends JFrame {
     private final JTextField txtTelefono = new JTextField(12);
     private int idSeleccionado = 0;
 
-    public PacientesFrame(Contexto contexto) {
-        super("Gestion de Pacientes");
+    public PacientesPanel(Contexto contexto) {
         this.contexto = contexto;
         construir();
         cargarTabla(contexto.pacientes.listar());
     }
 
     private void construir() {
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(8, 8));
 
-        add(crearFormulario(), BorderLayout.NORTH);
+        JPanel norte = new JPanel(new BorderLayout());
+        norte.add(UiUtil.titulo("Gestion de Pacientes"), BorderLayout.NORTH);
+        norte.add(crearFormulario(), BorderLayout.CENTER);
+        add(norte, BorderLayout.NORTH);
 
         tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabla.getSelectionModel().addListSelectionListener(e -> {
@@ -60,9 +61,6 @@ public class PacientesFrame extends JFrame {
         acciones.add(boton("Guardar", this::guardar));
         acciones.add(boton("Eliminar", this::eliminar));
         add(acciones, BorderLayout.SOUTH);
-
-        setSize(880, 520);
-        setLocationRelativeTo(null);
     }
 
     private JPanel crearFormulario() {

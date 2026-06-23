@@ -8,8 +8,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-// Gestion de especialidades medicas (RF05).
-public class EspecialidadesFrame extends JFrame {
+// Gestion de especialidades medicas (RF05). Panel incrustado en el dashboard.
+public class EspecialidadesPanel extends JPanel {
 
     private final transient Contexto contexto;
 
@@ -26,22 +26,17 @@ public class EspecialidadesFrame extends JFrame {
     private final JTextField txtDescripcion = new JTextField(20);
     private int idSeleccionado = 0;
 
-    public EspecialidadesFrame(Contexto contexto) {
-        super("Gestion de Especialidades");
+    public EspecialidadesPanel(Contexto contexto) {
         this.contexto = contexto;
         construir();
         cargarTabla();
     }
 
     private void construir() {
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(8, 8));
 
-        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabla.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) cargarSeleccion();
-        });
-        add(new JScrollPane(tabla), BorderLayout.CENTER);
+        JPanel norte = new JPanel(new BorderLayout());
+        norte.add(UiUtil.titulo("Gestion de Especialidades"), BorderLayout.NORTH);
 
         JPanel form = new JPanel(new GridBagLayout());
         form.setBorder(BorderFactory.createTitledBorder("Datos de la especialidad"));
@@ -52,16 +47,20 @@ public class EspecialidadesFrame extends JFrame {
         g.gridx = 1; form.add(txtNombre, g);
         g.gridx = 0; g.gridy = 1; form.add(new JLabel("Descripcion:"), g);
         g.gridx = 1; form.add(txtDescripcion, g);
-        add(form, BorderLayout.NORTH);
+        norte.add(form, BorderLayout.CENTER);
+        add(norte, BorderLayout.NORTH);
+
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabla.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) cargarSeleccion();
+        });
+        add(new JScrollPane(tabla), BorderLayout.CENTER);
 
         JPanel acciones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         acciones.add(boton("Nuevo", this::limpiar));
         acciones.add(boton("Guardar", this::guardar));
         acciones.add(boton("Eliminar", this::eliminar));
         add(acciones, BorderLayout.SOUTH);
-
-        setSize(640, 420);
-        setLocationRelativeTo(null);
     }
 
     private JButton boton(String texto, Runnable accion) {

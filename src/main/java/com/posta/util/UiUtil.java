@@ -22,4 +22,12 @@ public final class UiUtil {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         return r == JOptionPane.YES_OPTION;
     }
+
+    // Etiqueta de titulo para encabezar una seccion del dashboard.
+    public static JLabel titulo(String texto) {
+        JLabel etiqueta = new JLabel(texto);
+        etiqueta.setFont(etiqueta.getFont().deriveFont(Font.BOLD, 18f));
+        etiqueta.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
+        return etiqueta;
+    }
 }

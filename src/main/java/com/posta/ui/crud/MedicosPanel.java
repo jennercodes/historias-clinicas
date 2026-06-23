@@ -10,8 +10,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-// Gestion de medicos (RF04).
-public class MedicosFrame extends JFrame {
+// Gestion de medicos (RF04). Panel incrustado en el dashboard.
+public class MedicosPanel extends JPanel {
 
     private final transient Contexto contexto;
 
@@ -32,8 +32,7 @@ public class MedicosFrame extends JFrame {
     private final JComboBox<Especialidad> cboEspecialidad = new JComboBox<>();
     private int idSeleccionado = 0;
 
-    public MedicosFrame(Contexto contexto) {
-        super("Gestion de Medicos");
+    public MedicosPanel(Contexto contexto) {
         this.contexto = contexto;
         construir();
         cargarEspecialidades();
@@ -41,14 +40,10 @@ public class MedicosFrame extends JFrame {
     }
 
     private void construir() {
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(8, 8));
 
-        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabla.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) cargarSeleccion();
-        });
-        add(new JScrollPane(tabla), BorderLayout.CENTER);
+        JPanel norte = new JPanel(new BorderLayout());
+        norte.add(UiUtil.titulo("Gestion de Medicos"), BorderLayout.NORTH);
 
         JPanel form = new JPanel(new GridBagLayout());
         form.setBorder(BorderFactory.createTitledBorder("Datos del medico"));
@@ -62,16 +57,20 @@ public class MedicosFrame extends JFrame {
         agregar(form, g, 2, y, new JLabel("Apellidos:")); agregar(form, g, 3, y++, txtApellidos);
         agregar(form, g, 0, y, new JLabel("Telefono:")); agregar(form, g, 1, y, txtTelefono);
         agregar(form, g, 2, y, new JLabel("Especialidad:")); agregar(form, g, 3, y, cboEspecialidad);
-        add(form, BorderLayout.NORTH);
+        norte.add(form, BorderLayout.CENTER);
+        add(norte, BorderLayout.NORTH);
+
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabla.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) cargarSeleccion();
+        });
+        add(new JScrollPane(tabla), BorderLayout.CENTER);
 
         JPanel acciones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         acciones.add(boton("Nuevo", this::limpiar));
         acciones.add(boton("Guardar", this::guardar));
         acciones.add(boton("Eliminar", this::eliminar));
         add(acciones, BorderLayout.SOUTH);
-
-        setSize(820, 460);
-        setLocationRelativeTo(null);
     }
 
     private void agregar(JPanel panel, GridBagConstraints g, int x, int y, Component c) {

@@ -8,8 +8,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-// Busqueda de pacientes por DNI o por nombre/apellidos (RF07).
-public class BuscarPacienteFrame extends JFrame {
+// Busqueda de pacientes por DNI o por nombre/apellidos (RF07). Panel del dashboard.
+public class BuscarPacientePanel extends JPanel {
 
     private final transient Contexto contexto;
 
@@ -23,15 +23,16 @@ public class BuscarPacienteFrame extends JFrame {
     };
     private final JTable tabla = new JTable(modelo);
 
-    public BuscarPacienteFrame(Contexto contexto) {
-        super("Buscar Paciente");
+    public BuscarPacientePanel(Contexto contexto) {
         this.contexto = contexto;
         construir();
     }
 
     private void construir() {
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(8, 8));
+
+        JPanel norte = new JPanel(new BorderLayout());
+        norte.add(UiUtil.titulo("Buscar Paciente"), BorderLayout.NORTH);
 
         JPanel barra = new JPanel(new FlowLayout(FlowLayout.LEFT));
         barra.add(new JLabel("Criterio:"));
@@ -42,12 +43,10 @@ public class BuscarPacienteFrame extends JFrame {
         btnNombre.addActionListener(e -> buscarPorNombre());
         barra.add(btnDni);
         barra.add(btnNombre);
-        add(barra, BorderLayout.NORTH);
+        norte.add(barra, BorderLayout.CENTER);
+        add(norte, BorderLayout.NORTH);
 
         add(new JScrollPane(tabla), BorderLayout.CENTER);
-
-        setSize(720, 420);
-        setLocationRelativeTo(null);
     }
 
     private void buscarPorDni() {

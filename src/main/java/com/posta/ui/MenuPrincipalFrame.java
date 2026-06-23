@@ -1,111 +1,110 @@
 package com.posta.ui;
 
 import com.posta.model.Usuario;
-import com.posta.ui.crud.EspecialidadesFrame;
-import com.posta.ui.crud.MedicosFrame;
-import com.posta.ui.crud.PacientesFrame;
+import com.posta.ui.crud.EspecialidadesPanel;
+import com.posta.ui.crud.MedicosPanel;
+import com.posta.ui.crud.PacientesPanel;
 import com.posta.util.UiUtil;
 
 import javax.swing.*;
 import java.awt.*;
 
-// Menu principal con navegacion a los modulos del sistema (RF02).
+// Dashboard principal (RF02). Se abre maximizado y muestra los modulos dentro
+// de un area central que cambia segun la opcion elegida en el menu lateral, en
+// lugar de abrir una ventana emergente por cada seccion.
 public class MenuPrincipalFrame extends JFrame {
+
+    private static final Color COLOR_LATERAL = new Color(0x2C3E50);
+    private static final Color COLOR_LATERAL_TEXTO = Color.WHITE;
 
     private final transient Contexto contexto;
     private final transient Usuario usuario;
+    private final JPanel contenido = new JPanel(new BorderLayout());
 
     public MenuPrincipalFrame(Contexto contexto, Usuario usuario) {
-        super("Posta Medica - Menu Principal");
+        super("Posta Medica - Historias Clinicas");
         this.contexto = contexto;
         this.usuario = usuario;
         construir();
+        mostrar(new InicioPanel(contexto, usuario));
     }
 
     private void construir() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setJMenuBar(crearBarraMenu());
-        setContentPane(crearContenido());
-        setSize(620, 420);
+        setLayout(new BorderLayout());
+
+        add(crearCabecera(), BorderLayout.NORTH);
+        add(crearLateral(), BorderLayout.WEST);
+
+        contenido.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        add(contenido, BorderLayout.CENTER);
+
+        setSize(1100, 700);
         setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH); // abrir maximizado
     }
 
-    private JMenuBar crearBarraMenu() {
-        JMenuBar barra = new JMenuBar();
+    private JPanel crearCabecera() {
+        JPanel cabecera = new JPanel(new BorderLayout());
+        cabecera.setBackground(COLOR_LATERAL);
+        cabecera.setBorder(BorderFactory.createEmptyBorder(10, 16, 10, 16));
 
-        JMenu gestion = new JMenu("Gestion");
-        gestion.add(item("Pacientes", this::abrirPacientes));
-        gestion.add(item("Medicos", this::abrirMedicos));
-        gestion.add(item("Especialidades", this::abrirEspecialidades));
-        barra.add(gestion);
+        JLabel titulo = new JLabel("Posta Medica");
+        titulo.setForeground(COLOR_LATERAL_TEXTO);
+        titulo.setFont(titulo.getFont().deriveFont(Font.BOLD, 18f));
+        cabecera.add(titulo, BorderLayout.WEST);
 
-        JMenu clinico = new JMenu("Clinico");
-        clinico.add(item("Buscar paciente", this::abrirBuscarPaciente));
-        clinico.add(item("Atenciones e historia", this::pendiente));
-        barra.add(clinico);
+        JPanel derecha = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 0));
+        derecha.setOpaque(false);
+        JLabel quien = new JLabel(usuario.getNombreCompleto() + " (" + usuario.getRol() + ")");
+        quien.setForeground(COLOR_LATERAL_TEXTO);
+        JButton cerrar = new JButton("Cerrar sesion");
+        cerrar.addActionListener(e -> cerrarSesion());
+        derecha.add(quien);
+        derecha.add(cerrar);
+        cabecera.add(derecha, BorderLayout.EAST);
 
-        JMenu reportes = new JMenu("Reportes");
-        reportes.add(item("Atenciones por medico", this::pendiente));
-        reportes.add(item("Atenciones por especialidad", this::pendiente));
-        barra.add(reportes);
-
-        JMenu sesion = new JMenu("Sesion");
-        sesion.add(item("Cerrar sesion", this::cerrarSesion));
-        sesion.add(item("Salir", () -> System.exit(0)));
-        barra.add(sesion);
-
-        return barra;
+        return cabecera;
     }
 
-    private JPanel crearContenido() {
-        JPanel panel = new JPanel(new BorderLayout());
+    private JComponent crearLateral() {
+        JPanel lateral = new JPanel();
+        lateral.setLayout(new BoxLayout(lateral, BoxLayout.Y_AXIS));
+        lateral.setBackground(COLOR_LATERAL);
+        lateral.setBorder(BorderFactory.createEmptyBorder(12, 8, 12, 8));
 
-        JLabel bienvenida = new JLabel("Bienvenido, " + usuario.getNombreCompleto()
-                + "  (" + usuario.getRol() + ")", SwingConstants.CENTER);
-        bienvenida.setFont(bienvenida.getFont().deriveFont(Font.BOLD, 16f));
-        bienvenida.setBorder(BorderFactory.createEmptyBorder(16, 16, 8, 16));
-        panel.add(bienvenida, BorderLayout.NORTH);
+        lateral.add(itemLateral("Inicio", () -> mostrar(new InicioPanel(contexto, usuario))));
+        lateral.add(itemLateral("Pacientes", () -> mostrar(new PacientesPanel(contexto))));
+        lateral.add(itemLateral("Medicos", () -> mostrar(new MedicosPanel(contexto))));
+        lateral.add(itemLateral("Especialidades", () -> mostrar(new EspecialidadesPanel(contexto))));
+        lateral.add(itemLateral("Buscar paciente", () -> mostrar(new BuscarPacientePanel(contexto))));
+        lateral.add(itemLateral("Atenciones e historia", this::pendiente));
+        lateral.add(itemLateral("Reportes", this::pendiente));
 
-        JPanel botones = new JPanel(new GridLayout(0, 2, 12, 12));
-        botones.setBorder(BorderFactory.createEmptyBorder(8, 24, 24, 24));
-        botones.add(boton("Pacientes", this::abrirPacientes));
-        botones.add(boton("Medicos", this::abrirMedicos));
-        botones.add(boton("Especialidades", this::abrirEspecialidades));
-        botones.add(boton("Buscar paciente", this::abrirBuscarPaciente));
-        botones.add(boton("Atenciones e historia", this::pendiente));
-        botones.add(boton("Reportes", this::pendiente));
-        panel.add(botones, BorderLayout.CENTER);
-
-        return panel;
+        return lateral;
     }
 
-    private JMenuItem item(String texto, Runnable accion) {
-        JMenuItem mi = new JMenuItem(texto);
-        mi.addActionListener(e -> accion.run());
-        return mi;
-    }
-
-    private JButton boton(String texto, Runnable accion) {
+    // Boton de navegacion del menu lateral, de ancho completo.
+    private JButton itemLateral(String texto, Runnable accion) {
         JButton b = new JButton(texto);
-        b.setPreferredSize(new Dimension(180, 56));
+        b.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
+        b.setHorizontalAlignment(SwingConstants.LEFT);
+        b.setFocusPainted(false);
         b.addActionListener(e -> accion.run());
+        // pequeno margen entre botones
+        b.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createEmptyBorder(2, 0, 2, 0),
+                b.getBorder()));
         return b;
     }
 
-    private void abrirPacientes() {
-        new PacientesFrame(contexto).setVisible(true);
-    }
-
-    private void abrirMedicos() {
-        new MedicosFrame(contexto).setVisible(true);
-    }
-
-    private void abrirEspecialidades() {
-        new EspecialidadesFrame(contexto).setVisible(true);
-    }
-
-    private void abrirBuscarPaciente() {
-        new BuscarPacienteFrame(contexto).setVisible(true);
+    // Reemplaza el contenido central por el panel indicado.
+    private void mostrar(JComponent panel) {
+        contenido.removeAll();
+        contenido.add(panel, BorderLayout.CENTER);
+        contenido.revalidate();
+        contenido.repaint();
     }
 
     private void pendiente() {
