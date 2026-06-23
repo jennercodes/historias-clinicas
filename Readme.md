@@ -158,12 +158,12 @@ integridad de datos (RNF03 — validaciones + guardado atómico), auth (RNF04), 
 - [x] `ReporteService.porEspecialidadYRango(esp, desde, hasta)` (RF09).
 - [x] **Entregable:** lógica probada desde un `main` de consola antes de la UI.
 
-### Fase 5 — Interfaz Swing
-- [ ] `LoginFrame` → `MenuPrincipalFrame` (barra de menú con navegación, RF02).
-- [ ] CRUDs `Pacientes`, `Medicos`, `Especialidades`: `JTable` + formulario alta/edición + validaciones.
+### Fase 5 — Interfaz Swing (en curso)
+- [x] `LoginFrame` → `MenuPrincipalFrame` (barra de menú con navegación, RF02).
+- [x] CRUDs `Pacientes`, `Medicos`, `Especialidades`: `JTable` + formulario alta/edición + validaciones.
 - [ ] `HistoriaClinicaFrame` + `AtencionFrame`: abrir/crear historia de un paciente y agregar atenciones.
-- [ ] `BuscarPacienteFrame`, `ReporteMedicoFrame`, `ReporteEspecialidadFrame`.
-- [ ] Validaciones de UI: DNI de 8 dígitos, campos obligatorios, fechas válidas (RNF01).
+- [x] `BuscarPacienteFrame` (RF07). Pendientes: `ReporteMedicoFrame`, `ReporteEspecialidadFrame`.
+- [x] Validaciones de UI: DNI de 8 dígitos, campos obligatorios, fechas válidas (RNF01).
 - [ ] **Entregable:** flujo completo navegable.
 
 ### Fase 6 — Generación de PDF
