@@ -4,19 +4,6 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * Arreglo unidimensional redimensionable implementado a mano.
- *
- * Internamente usa un arreglo de objetos con una capacidad que se duplica
- * cuando se llena, de modo que se comporta como un arreglo de tamano
- * variable sin usar las colecciones del JDK. Se utiliza para almacenar
- * pacientes, medicos y especialidades (marco teorico 2.2.2 - 2.2.4).
- *
- * Operaciones soportadas: insertar, actualizar, eliminar, buscar, recorrer,
- * comparar (contiene) y clonar (2.2.3).
- *
- * @param <T> tipo de elemento almacenado
- */
 public class ArregloDinamico<T> implements Iterable<T>, Serializable {
 
     private static final long serialVersionUID = 1L;

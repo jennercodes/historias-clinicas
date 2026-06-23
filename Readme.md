@@ -124,12 +124,12 @@ integridad de datos (RNF03 — validaciones + guardado atómico), auth (RNF04), 
 
 ## 6. Fases de desarrollo (orden recomendado)
 
-### Fase 0 — Setup (0.5 día)
+### Fase 0 — Setup
 - Crear proyecto Maven, JDK 17, `pom.xml` con dependencia OpenPDF.
 - Estructura de paquetes vacía + `Main` que abre una ventana de prueba.
 - **Entregable:** proyecto compila y corre.
 
-### Fase 1 — Estructuras de datos a mano ⭐ (núcleo, 2 días)
+### Fase 1 — Estructuras de datos a mano
 - `ArregloDinamico<T>`: capacidad inicial, redimensionar al llenarse, `insertar`, `obtener(i)`,
   `actualizar(i)`, `eliminar(i)`, `buscar(predicado)`, `recorrer`, `tamaño`, `contiene`, `clonar`.
 - `ListaSimple<T>` y `ListaDoble<T>`: `insertarInicio/Final`, `eliminar`, `buscar`, `recorrer`,
@@ -138,14 +138,14 @@ integridad de datos (RNF03 — validaciones + guardado atómico), auth (RNF04), 
 - **Pruebas unitarias** (JUnit) de cada operación. Esta fase es la más evaluada: dejarla sólida.
 - **Entregable:** estructuras testeadas e independientes de la UI.
 
-### Fase 2 — Modelo / TAD (0.5 día)
+### Fase 2 — Modelo / TAD
 - Clases `Usuario`, `Especialidad`, `Medico`, `Paciente`, `HistoriaClinica`, `Atencion`.
 - Todas `implements Serializable` con `serialVersionUID`.
 - `HistoriaClinica` contiene `ListaDoble<Atencion>` (las estructuras propias también `Serializable`).
 - `equals`/`hashCode` por clave natural (DNI, id) para detección de duplicados.
 - **Entregable:** modelo de dominio completo.
 
-### Fase 3 — Repositorios + persistencia en archivos (1 día)
+### Fase 3 — Repositorios + persistencia en archivos
 - `RepositorioBase`: `guardar()` y `cargar()` con `ObjectOutputStream`/`ObjectInputStream`.
 - Un repositorio por entidad, usando la estructura correspondiente.
 - Cargar al iniciar la app, guardar tras cada alta/baja/modificación (guardado seguro: escribir a
@@ -153,14 +153,14 @@ integridad de datos (RNF03 — validaciones + guardado atómico), auth (RNF04), 
 - Datos semilla: usuario admin por defecto, especialidades base.
 - **Entregable:** los datos sobreviven al cierre de la app.
 
-### Fase 4 — Servicios / lógica (1 día)
+### Fase 4 — Servicios / lógica
 - `AuthService.login(usuario, clave)` (RF01).
 - `BusquedaService` por DNI y por nombre/apellidos parcial (RF07).
 - `AtencionService.registrar(...)` y `atencionesDelDia(medico, fecha)` (RF06, RF08).
 - `ReporteService.porEspecialidadYRango(esp, desde, hasta)` (RF09).
 - **Entregable:** lógica probada desde un `main` de consola antes de la UI.
 
-### Fase 5 — Interfaz Swing (3 días)
+### Fase 5 — Interfaz Swing
 - `LoginFrame` → `MenuPrincipalFrame` (barra de menú con navegación, RF02).
 - CRUDs `Pacientes`, `Medicos`, `Especialidades`: `JTable` + formulario alta/edición + validaciones.
 - `HistoriaClinicaFrame` + `AtencionFrame`: abrir/crear historia de un paciente y agregar atenciones.
@@ -168,13 +168,13 @@ integridad de datos (RNF03 — validaciones + guardado atómico), auth (RNF04), 
 - Validaciones de UI: DNI de 8 dígitos, campos obligatorios, fechas válidas (RNF01).
 - **Entregable:** flujo completo navegable.
 
-### Fase 6 — Generación de PDF (1 día)
+### Fase 6 — Generación de PDF
 - `PdfService.generarHistoriaClinica(historia)`: cabecera de la posta, datos del paciente,
   tabla de atenciones (recorriendo la `ListaDoble`), guardar `.pdf` y abrirlo con `Desktop.open` (RF10).
 - Reportes RF08/RF09 también exportables a PDF (opcional pero suma).
 - **Entregable:** PDF generado y abierto desde la app.
 
-### Fase 7 — Integración, pruebas y pulido (1 día)
+### Fase 7 — Integración, pruebas y pulido
 - Datos de prueba realistas, recorrido de todos los RF, manejo de errores y mensajes claros.
 - Revisión de tiempos (RNF02), README de uso y de compilación, capturas para el informe.
 - **Entregable:** versión presentable + documentación.

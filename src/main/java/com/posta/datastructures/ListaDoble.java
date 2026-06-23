@@ -4,16 +4,6 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * Lista doblemente enlazada implementada a mano.
- *
- * Cada nodo mantiene referencias al anterior y al siguiente, lo que permite
- * recorrer el historial en ambos sentidos. Se usa para administrar el
- * historial de atenciones medicas de un paciente (marco teorico 2.2.8),
- * facilitando la navegacion entre registros historicos.
- *
- * @param <T> tipo de elemento almacenado
- */
 public class ListaDoble<T> implements Iterable<T>, Serializable {
 
     private static final long serialVersionUID = 1L;

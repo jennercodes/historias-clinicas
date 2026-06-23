@@ -2,12 +2,6 @@ package com.posta.datastructures;
 
 import java.io.Serializable;
 
-/**
- * Nodo de una lista enlazada simple. Almacena un dato y la referencia
- * al siguiente nodo de la lista.
- *
- * @param <T> tipo de dato almacenado
- */
 public class Nodo<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;

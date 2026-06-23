@@ -4,15 +4,6 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * Lista enlazada simple implementada a mano.
- *
- * Cada nodo guarda un dato y una referencia al siguiente. Se usa para
- * almacenar las historias clinicas, cuya cantidad crece dinamicamente sin
- * necesidad de un tamano fijo (marco teorico 2.2.6 - 2.2.7).
- *
- * @param <T> tipo de elemento almacenado
- */
 public class ListaSimple<T> implements Iterable<T>, Serializable {
 
     private static final long serialVersionUID = 1L;

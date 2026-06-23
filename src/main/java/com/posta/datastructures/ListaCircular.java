@@ -4,17 +4,6 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * Lista circular simple implementada a mano.
- *
- * El ultimo nodo apunta nuevamente a la cabeza, lo que permite recorridos
- * continuos sobre la coleccion (marco teorico 2.2.9). Se incluye como base
- * para futuras mejoras del sistema (por ejemplo, rotacion de turnos de
- * atencion). Para evitar bucles infinitos, el recorrido se limita al numero
- * de elementos almacenados.
- *
- * @param <T> tipo de elemento almacenado
- */
 public class ListaCircular<T> implements Iterable<T>, Serializable {
 
     private static final long serialVersionUID = 1L;

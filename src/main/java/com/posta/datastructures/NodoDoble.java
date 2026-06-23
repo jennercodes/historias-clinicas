@@ -2,13 +2,6 @@ package com.posta.datastructures;
 
 import java.io.Serializable;
 
-/**
- * Nodo de una lista doblemente enlazada. Mantiene referencias al nodo
- * anterior y al siguiente, lo que permite recorrer el historial en ambos
- * sentidos.
- *
- * @param <T> tipo de dato almacenado
- */
 public class NodoDoble<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
