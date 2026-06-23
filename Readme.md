@@ -143,13 +143,13 @@ integridad de datos (RNF03 — validaciones + guardado atómico), auth (RNF04), 
 - [x] `equals`/`hashCode` por clave natural (DNI, id) para detección de duplicados.
 - [x] **Entregable:** modelo de dominio completo (validado con test de serialización round-trip).
 
-### Fase 3 — Repositorios + persistencia en archivos
-- [ ] `RepositorioBase`: `guardar()` y `cargar()` con `ObjectOutputStream`/`ObjectInputStream`.
-- [ ] Un repositorio por entidad, usando la estructura correspondiente.
-- [ ] Cargar al iniciar la app, guardar tras cada alta/baja/modificación (guardado seguro: escribir a
+### Fase 3 — Repositorios + persistencia en archivos ✅
+- [x] `RepositorioBase`: `guardar()` y `cargar()` con `ObjectOutputStream`/`ObjectInputStream`.
+- [x] Un repositorio por entidad, usando la estructura correspondiente.
+- [x] Cargar al iniciar la app, guardar tras cada alta/baja/modificación (guardado seguro: escribir a
   archivo temporal y renombrar, para no corromper datos — RNF03).
-- [ ] Datos semilla: usuario admin por defecto, especialidades base.
-- [ ] **Entregable:** los datos sobreviven al cierre de la app.
+- [x] Datos semilla: usuario admin por defecto, especialidades base.
+- [x] **Entregable:** los datos sobreviven al cierre de la app.
 
 ### Fase 4 — Servicios / lógica
 - [ ] `AuthService.login(usuario, clave)` (RF01).
