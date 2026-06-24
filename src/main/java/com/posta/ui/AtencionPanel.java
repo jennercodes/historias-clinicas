@@ -11,6 +11,9 @@ import com.posta.util.UiUtil;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -55,6 +58,9 @@ public class AtencionPanel extends JPanel {
         cboPaciente.setPreferredSize(new Dimension(280, cboPaciente.getPreferredSize().height));
         cboPaciente.addActionListener(e -> cargarHistoria());
         selector.add(cboPaciente);
+        JButton btnPdf = new JButton("Generar PDF");
+        btnPdf.addActionListener(e -> generarPdf());
+        selector.add(btnPdf);
         norte.add(selector, BorderLayout.CENTER);
         add(norte, BorderLayout.NORTH);
 
@@ -179,5 +185,38 @@ public class AtencionPanel extends JPanel {
         txtDiagnostico.setText("");
         txtTratamiento.setText("");
         txtObservaciones.setText("");
+    }
+
+    // Genera el PDF de la historia del paciente seleccionado y lo abre (RF10).
+    private void generarPdf() {
+        Paciente p = (Paciente) cboPaciente.getSelectedItem();
+        if (p == null) {
+            UiUtil.error(this, "Seleccione un paciente.");
+            return;
+        }
+        HistoriaClinica hc = contexto.historias.buscarPorPacienteId(p.getId());
+        if (hc == null || hc.cantidadAtenciones() == 0) {
+            UiUtil.error(this, "El paciente aun no tiene atenciones registradas.");
+            return;
+        }
+        Path destino = Paths.get("historias-pdf", "historia-" + p.getDni() + "-" + hc.getId() + ".pdf");
+        try {
+            contexto.pdf.generar(p, hc, destino);
+            abrir(destino);
+            UiUtil.info(this, "PDF generado en:\n" + destino.toAbsolutePath());
+        } catch (IOException ex) {
+            UiUtil.error(this, "No se pudo generar el PDF: " + ex.getMessage());
+        }
+    }
+
+    private void abrir(Path archivo) {
+        try {
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(archivo.toFile());
+            }
+        } catch (IOException ex) {
+            // El PDF quedo generado aunque no se haya podido abrir automaticamente.
+            UiUtil.info(this, "PDF generado, pero no se pudo abrir automaticamente.");
+        }
     }
 }

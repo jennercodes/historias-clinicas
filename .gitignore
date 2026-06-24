@@ -6,6 +6,10 @@ target/
 data/
 *.dat
 
+# PDF de historias clinicas generados por la app
+historias-pdf/
+*.pdf
+
 # IntelliJ IDEA
 .idea/
 *.iml

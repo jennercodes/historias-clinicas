@@ -17,4 +17,5 @@ public class Contexto {
     public final BusquedaService busqueda = new BusquedaService(pacientes);
     public final AtencionService atenciones = new AtencionService(historias, pacientes);
     public final ReporteService reportes = new ReporteService(historias);
+    public final PdfService pdf = new PdfService(medicos, especialidades);
 }
