@@ -16,9 +16,9 @@ class ContextoTest {
         ArchivoUtil.setDirectorioBase(tmp);
         Contexto c = new Contexto();
 
-        assertEquals(3, c.medicos.cantidad());
-        assertEquals(4, c.pacientes.cantidad());
-        assertEquals(1, c.historias.cantidad());
+        assertEquals(6, c.medicos.cantidad());
+        assertEquals(8, c.pacientes.cantidad());
+        assertEquals(8, c.historias.cantidad());
 
         Paciente ana = c.pacientes.buscarPorDni("12345678");
         assertNotNull(ana);
@@ -34,8 +34,8 @@ class ContextoTest {
         new Contexto();              // primer arranque: siembra
         Contexto segundo = new Contexto(); // relee de disco, no vuelve a sembrar
 
-        assertEquals(3, segundo.medicos.cantidad());
-        assertEquals(4, segundo.pacientes.cantidad());
-        assertEquals(1, segundo.historias.cantidad());
+        assertEquals(6, segundo.medicos.cantidad());
+        assertEquals(8, segundo.pacientes.cantidad());
+        assertEquals(8, segundo.historias.cantidad());
     }
 }
