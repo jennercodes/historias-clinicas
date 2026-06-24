@@ -166,11 +166,12 @@ integridad de datos (RNF03 — validaciones + guardado atómico), auth (RNF04), 
 - [x] Validaciones de UI: DNI de 8 dígitos, campos obligatorios, fechas válidas (RNF01).
 - [x] **Entregable:** flujo completo navegable.
 
-### Fase 6 — Generación de PDF
-- [ ] `PdfService.generarHistoriaClinica(historia)`: cabecera de la posta, datos del paciente,
+### Fase 6 — Generación de PDF ✅
+- [x] `PdfService.generar(paciente, historia, destino)`: cabecera de la posta, datos del paciente,
   tabla de atenciones (recorriendo la `ListaDoble`), guardar `.pdf` y abrirlo con `Desktop.open` (RF10).
+- [x] Botón "Generar PDF" en `AtencionPanel`; pruebas que validan que el archivo es un PDF válido.
 - [ ] Reportes RF08/RF09 también exportables a PDF (opcional pero suma).
-- [ ] **Entregable:** PDF generado y abierto desde la app.
+- [x] **Entregable:** PDF generado y abierto desde la app.
 
 ### Fase 7 — Integración, pruebas y pulido
 - [ ] Datos de prueba realistas, recorrido de todos los RF, manejo de errores y mensajes claros.
