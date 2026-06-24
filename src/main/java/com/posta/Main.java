@@ -7,7 +7,7 @@ import javax.swing.*;
 
 // Punto de entrada de la aplicacion: configura el aspecto del sistema, crea el
 // contexto (repositorios y servicios compartidos) y muestra la pantalla de
-// acceso. La demo de consola equivalente esta en com.posta.demo.DemoConsola.
+// acceso.
 public class Main {
 
     public static void main(String[] args) {
