@@ -5,6 +5,42 @@
 
 ---
 
+## Cómo compilar y ejecutar
+
+**Requisitos:** JDK 21 y Maven.
+
+```bash
+# Compilar y correr las pruebas
+mvn clean test
+
+# Empaquetar un JAR ejecutable (con dependencias incluidas) y ejecutar
+mvn clean package
+java -jar target/historias-clinicas.jar
+```
+
+También puede ejecutarse desde IntelliJ: abrir el proyecto (importar el `pom.xml` como
+proyecto Maven) y ejecutar la clase `com.posta.Main`.
+
+**Acceso por defecto:** usuario `admin` · clave `admin123`
+
+En el primer arranque se siembran datos de demostración (especialidades, médicos, pacientes y una
+historia con atenciones) para poder probar el sistema de inmediato. Los datos se guardan en la
+carpeta `data/` y los PDF generados en `historias-pdf/` (ambas ignoradas por git).
+
+### Flujo de prueba sugerido
+1. Iniciar sesión con `admin` / `admin123`.
+2. **Pacientes / Médicos / Especialidades:** registrar, editar y eliminar.
+3. **Atenciones e historia:** elegir un paciente, ver su historial y registrar una atención.
+4. **Generar PDF** de la historia desde ese mismo módulo.
+5. **Buscar paciente** por DNI o nombre.
+6. **Reporte por médico** (fecha) y **Reporte por especialidad** (rango de fechas).
+
+### Cobertura de requerimientos
+Los diez requerimientos funcionales (RF01–RF10) están implementados. El detalle de qué módulo y
+qué estructura de datos cubre cada uno está en la sección [5. Trazabilidad de requerimientos](#5-trazabilidad-de-requerimientos-funcionales).
+
+---
+
 ## 1. Objetivo y enfoque
 
 Construir una app de escritorio (formularios Swing) que gestione pacientes, médicos,
@@ -173,10 +209,10 @@ integridad de datos (RNF03 — validaciones + guardado atómico), auth (RNF04), 
 - [ ] Reportes RF08/RF09 también exportables a PDF (opcional pero suma).
 - [x] **Entregable:** PDF generado y abierto desde la app.
 
-### Fase 7 — Integración, pruebas y pulido
-- [ ] Datos de prueba realistas, recorrido de todos los RF, manejo de errores y mensajes claros.
-- [ ] Revisión de tiempos (RNF02), README de uso y de compilación, capturas para el informe.
-- [ ] **Entregable:** versión presentable + documentación.
+### Fase 7 — Integración, pruebas y pulido ✅
+- [x] Datos de demostración sembrados en el primer arranque; recorrido de todos los RF.
+- [x] README de uso y de compilación (sección "Cómo compilar y ejecutar"); validaciones y mensajes de error.
+- [x] **Entregable:** versión presentable + documentación.
 
 **Estimado total:** ~10 días de trabajo (ajustable según equipo).
 
