@@ -10,6 +10,9 @@ import com.posta.util.UiUtil;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 
 // Reporte de atenciones realizadas por un medico en una fecha (RF08).
@@ -50,6 +53,9 @@ public class ReporteMedicoPanel extends JPanel {
         JButton btnGenerar = new JButton("Generar");
         btnGenerar.addActionListener(e -> generar());
         filtros.add(btnGenerar);
+        JButton btnExportar = new JButton("Exportar PDF");
+        btnExportar.addActionListener(e -> exportarPdf());
+        filtros.add(btnExportar);
         filtros.add(lblTotal);
         norte.add(filtros, BorderLayout.CENTER);
         add(norte, BorderLayout.NORTH);
@@ -87,5 +93,25 @@ public class ReporteMedicoPanel extends JPanel {
             total++;
         }
         lblTotal.setText("  Total: " + total);
+    }
+
+    private void exportarPdf() {
+        if (modelo.getRowCount() == 0) {
+            UiUtil.info(this, "Genere primero el reporte.");
+            return;
+        }
+        Medico m = (Medico) cboMedico.getSelectedItem();
+        String fecha = txtFecha.getText().trim();
+        String subtitulo = "Medico: " + (m != null ? m.getNombreCompleto() : "—") + "     Fecha: " + fecha;
+        Path destino = Paths.get("reportes-pdf",
+                "reporte-medico-" + (m != null ? m.getDni() : "x") + "-" + fecha.replace("/", "-") + ".pdf");
+        try {
+            contexto.pdf.generarTabla("Atenciones por Medico", subtitulo,
+                    UiUtil.columnas(modelo), UiUtil.filas(modelo), destino);
+            UiUtil.abrir(this, destino);
+            UiUtil.info(this, "PDF generado en:\n" + destino.toAbsolutePath());
+        } catch (IOException ex) {
+            UiUtil.error(this, "No se pudo generar el PDF: " + ex.getMessage());
+        }
     }
 }

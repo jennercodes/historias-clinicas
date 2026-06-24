@@ -10,6 +10,9 @@ import com.posta.util.UiUtil;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 
 // Reporte de atenciones por especialidad y rango de fechas (RF09).
@@ -54,6 +57,9 @@ public class ReporteEspecialidadPanel extends JPanel {
         JButton btnGenerar = new JButton("Generar");
         btnGenerar.addActionListener(e -> generar());
         filtros.add(btnGenerar);
+        JButton btnExportar = new JButton("Exportar PDF");
+        btnExportar.addActionListener(e -> exportarPdf());
+        filtros.add(btnExportar);
         filtros.add(lblTotal);
         norte.add(filtros, BorderLayout.CENTER);
         add(norte, BorderLayout.NORTH);
@@ -96,5 +102,28 @@ public class ReporteEspecialidadPanel extends JPanel {
             total++;
         }
         lblTotal.setText("  Total: " + total);
+    }
+
+    private void exportarPdf() {
+        if (modelo.getRowCount() == 0) {
+            UiUtil.info(this, "Genere primero el reporte.");
+            return;
+        }
+        Especialidad esp = (Especialidad) cboEspecialidad.getSelectedItem();
+        String desde = txtDesde.getText().trim();
+        String hasta = txtHasta.getText().trim();
+        String subtitulo = "Especialidad: " + (esp != null ? esp.getNombre() : "—")
+                + "     Periodo: " + desde + " a " + hasta;
+        Path destino = Paths.get("reportes-pdf",
+                "reporte-especialidad-" + (esp != null ? esp.getId() : "x")
+                        + "-" + desde.replace("/", "-") + "_" + hasta.replace("/", "-") + ".pdf");
+        try {
+            contexto.pdf.generarTabla("Atenciones por Especialidad", subtitulo,
+                    UiUtil.columnas(modelo), UiUtil.filas(modelo), destino);
+            UiUtil.abrir(this, destino);
+            UiUtil.info(this, "PDF generado en:\n" + destino.toAbsolutePath());
+        } catch (IOException ex) {
+            UiUtil.error(this, "No se pudo generar el PDF: " + ex.getMessage());
+        }
     }
 }

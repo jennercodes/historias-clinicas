@@ -71,6 +71,20 @@ class PdfServiceTest {
         assertEquals("%PDF", cabecera(resultado));
     }
 
+    @Test
+    void generaPdfDeReporteGenerico() throws Exception {
+        String[] columnas = {"Fecha", "Paciente", "Motivo"};
+        var filas = java.util.List.of(
+                new String[]{"01/01/2026", "Ana Lopez", "Control"},
+                new String[]{"02/01/2026", "Luis Diaz", "Fiebre"});
+
+        Path destino = tmp.resolve("reporte.pdf");
+        Path resultado = pdf.generarTabla("Atenciones por Medico", "Medico: Soto", columnas, filas, destino);
+
+        assertTrue(Files.exists(resultado));
+        assertEquals("%PDF", cabecera(resultado));
+    }
+
     private String cabecera(Path archivo) throws Exception {
         byte[] todo = Files.readAllBytes(archivo);
         return new String(todo, 0, 4, StandardCharsets.US_ASCII);

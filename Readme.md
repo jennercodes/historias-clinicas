@@ -206,7 +206,7 @@ integridad de datos (RNF03 — validaciones + guardado atómico), auth (RNF04), 
 - [x] `PdfService.generar(paciente, historia, destino)`: cabecera de la posta, datos del paciente,
   tabla de atenciones (recorriendo la `ListaDoble`), guardar `.pdf` y abrirlo con `Desktop.open` (RF10).
 - [x] Botón "Generar PDF" en `AtencionPanel`; pruebas que validan que el archivo es un PDF válido.
-- [ ] Reportes RF08/RF09 también exportables a PDF (opcional pero suma).
+- [x] Reportes RF08/RF09 también exportables a PDF (botón "Exportar PDF" en cada reporte).
 - [x] **Entregable:** PDF generado y abierto desde la app.
 
 ### Fase 7 — Integración, pruebas y pulido ✅

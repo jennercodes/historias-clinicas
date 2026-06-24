@@ -202,21 +202,10 @@ public class AtencionPanel extends JPanel {
         Path destino = Paths.get("historias-pdf", "historia-" + p.getDni() + "-" + hc.getId() + ".pdf");
         try {
             contexto.pdf.generar(p, hc, destino);
-            abrir(destino);
+            UiUtil.abrir(this, destino);
             UiUtil.info(this, "PDF generado en:\n" + destino.toAbsolutePath());
         } catch (IOException ex) {
             UiUtil.error(this, "No se pudo generar el PDF: " + ex.getMessage());
-        }
-    }
-
-    private void abrir(Path archivo) {
-        try {
-            if (Desktop.isDesktopSupported()) {
-                Desktop.getDesktop().open(archivo.toFile());
-            }
-        } catch (IOException ex) {
-            // El PDF quedo generado aunque no se haya podido abrir automaticamente.
-            UiUtil.info(this, "PDF generado, pero no se pudo abrir automaticamente.");
         }
     }
 }

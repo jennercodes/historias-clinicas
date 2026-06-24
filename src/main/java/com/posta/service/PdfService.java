@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.List;
 
 // Genera la historia clinica de un paciente en formato PDF (RF10).
 public class PdfService {
@@ -59,12 +60,61 @@ public class PdfService {
         return destino;
     }
 
+    // Genera un PDF de reporte: encabezado, subtitulo y una tabla generica con
+    // las columnas y filas indicadas (usado por los reportes RF08/RF09).
+    public Path generarTabla(String titulo, String subtitulo, String[] columnas,
+                             List<String[]> filas, Path destino) throws IOException {
+        Path directorio = destino.toAbsolutePath().getParent();
+        if (directorio != null) {
+            Files.createDirectories(directorio);
+        }
+        Document documento = new Document(PageSize.A4.rotate(), 40, 40, 54, 40);
+        try {
+            PdfWriter.getInstance(documento, Files.newOutputStream(destino));
+            documento.open();
+            encabezado(documento, titulo);
+            if (subtitulo != null && !subtitulo.isBlank()) {
+                Paragraph sub = new Paragraph(subtitulo, new Font(Font.HELVETICA, 10, Font.NORMAL));
+                sub.setSpacingAfter(8);
+                documento.add(sub);
+            }
+            if (filas.isEmpty()) {
+                documento.add(new Paragraph("Sin resultados.", new Font(Font.HELVETICA, 10, Font.ITALIC)));
+            } else {
+                PdfPTable tabla = new PdfPTable(columnas.length);
+                tabla.setWidthPercentage(100);
+                for (String col : columnas) {
+                    PdfPCell celda = new PdfPCell(new Phrase(col, new Font(Font.HELVETICA, 9, Font.BOLD, Color.WHITE)));
+                    celda.setBackgroundColor(COLOR_CABECERA);
+                    celda.setPadding(4);
+                    tabla.addCell(celda);
+                }
+                Font fuenteCelda = new Font(Font.HELVETICA, 9, Font.NORMAL);
+                for (String[] fila : filas) {
+                    for (String valor : fila) {
+                        tabla.addCell(celda(valor != null ? valor : "—", fuenteCelda));
+                    }
+                }
+                documento.add(tabla);
+            }
+            agregarPie(documento);
+            documento.close();
+        } catch (DocumentException e) {
+            throw new IOException("No se pudo generar el PDF", e);
+        }
+        return destino;
+    }
+
     private void agregarEncabezado(Document documento) throws DocumentException {
+        encabezado(documento, "HISTORIA CLINICA");
+    }
+
+    private void encabezado(Document documento, String subtitulo) throws DocumentException {
         Paragraph posta = new Paragraph("POSTA MEDICA", new Font(Font.HELVETICA, 16, Font.BOLD));
         posta.setAlignment(Element.ALIGN_CENTER);
         documento.add(posta);
 
-        Paragraph titulo = new Paragraph("HISTORIA CLINICA", new Font(Font.HELVETICA, 13, Font.BOLD));
+        Paragraph titulo = new Paragraph(subtitulo, new Font(Font.HELVETICA, 13, Font.BOLD));
         titulo.setAlignment(Element.ALIGN_CENTER);
         titulo.setSpacingAfter(12);
         documento.add(titulo);
