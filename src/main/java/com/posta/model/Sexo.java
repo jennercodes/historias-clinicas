@@ -1,6 +1,5 @@
 package com.posta.model;
 
-// Sexo del paciente. Las enumeraciones de Java son serializables.
 public enum Sexo {
     MASCULINO("Masculino"),
     FEMENINO("Femenino");

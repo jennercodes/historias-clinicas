@@ -3,8 +3,7 @@ package com.posta.repository;
 import com.posta.datastructures.ArregloDinamico;
 import com.posta.model.Paciente;
 
-// Repositorio de pacientes. Incluye busquedas por DNI y por nombre/apellidos
-// que dan soporte al requerimiento RF07.
+// Busquedas por DNI y por nombre/apellidos (RF07).
 public class RepositorioPaciente extends RepositorioArreglo<Paciente> {
 
     public RepositorioPaciente() {
@@ -28,7 +27,7 @@ public class RepositorioPaciente extends RepositorioArreglo<Paciente> {
         return datos.buscar(p -> dni.equals(p.getDni()));
     }
 
-    // Coincidencia parcial (sin distinguir mayusculas) sobre nombres o apellidos.
+    // Coincidencia parcial sin distinguir mayusculas, sobre nombres o apellidos.
     public ArregloDinamico<Paciente> buscarPorNombre(String texto) {
         if (texto == null || texto.isBlank()) {
             return datos.clonar();

@@ -16,10 +16,6 @@ public class ListaSimple<T> implements Iterable<T>, Serializable {
         this.tamano = 0;
     }
 
-    // ---------------------------------------------------------------------
-    // Insercion
-    // ---------------------------------------------------------------------
-
     public void insertarInicio(T dato) {
         Nodo<T> nuevo = new Nodo<>(dato);
         nuevo.setSiguiente(cabeza);
@@ -41,10 +37,6 @@ public class ListaSimple<T> implements Iterable<T>, Serializable {
         tamano++;
     }
 
-    // ---------------------------------------------------------------------
-    // Acceso
-    // ---------------------------------------------------------------------
-
     public T obtener(int indice) {
         return nodoEn(indice).getDato();
     }
@@ -56,10 +48,6 @@ public class ListaSimple<T> implements Iterable<T>, Serializable {
         return cabeza.getDato();
     }
 
-    // ---------------------------------------------------------------------
-    // Eliminacion
-    // ---------------------------------------------------------------------
-
     public T eliminarInicio() {
         if (cabeza == null) {
             throw new NoSuchElementException("La lista esta vacia");
@@ -70,7 +58,7 @@ public class ListaSimple<T> implements Iterable<T>, Serializable {
         return dato;
     }
 
-    /** Elimina la primera aparicion del dato (segun equals). */
+    // Elimina la primera coincidencia segun equals.
     public boolean eliminar(T dato) {
         if (cabeza == null) {
             return false;
@@ -99,10 +87,6 @@ public class ListaSimple<T> implements Iterable<T>, Serializable {
         tamano = 0;
     }
 
-    // ---------------------------------------------------------------------
-    // Busqueda
-    // ---------------------------------------------------------------------
-
     public boolean contiene(T dato) {
         Nodo<T> actual = cabeza;
         while (actual != null) {
@@ -114,7 +98,6 @@ public class ListaSimple<T> implements Iterable<T>, Serializable {
         return false;
     }
 
-    /** Devuelve el primer dato que cumple el criterio, o null. */
     public T buscar(Criterio<T> criterio) {
         Nodo<T> actual = cabeza;
         while (actual != null) {
@@ -126,7 +109,6 @@ public class ListaSimple<T> implements Iterable<T>, Serializable {
         return null;
     }
 
-    /** Nueva lista con los datos que cumplen el criterio. */
     public ListaSimple<T> filtrar(Criterio<T> criterio) {
         ListaSimple<T> resultado = new ListaSimple<>();
         Nodo<T> actual = cabeza;
@@ -139,10 +121,6 @@ public class ListaSimple<T> implements Iterable<T>, Serializable {
         return resultado;
     }
 
-    // ---------------------------------------------------------------------
-    // Estado
-    // ---------------------------------------------------------------------
-
     public int tamano() {
         return tamano;
     }
@@ -150,10 +128,6 @@ public class ListaSimple<T> implements Iterable<T>, Serializable {
     public boolean estaVacia() {
         return tamano == 0;
     }
-
-    // ---------------------------------------------------------------------
-    // Recorrido
-    // ---------------------------------------------------------------------
 
     @Override
     public Iterator<T> iterator() {
@@ -176,10 +150,6 @@ public class ListaSimple<T> implements Iterable<T>, Serializable {
             }
         };
     }
-
-    // ---------------------------------------------------------------------
-    // Apoyo interno
-    // ---------------------------------------------------------------------
 
     private Nodo<T> nodoEn(int indice) {
         if (indice < 0 || indice >= tamano) {

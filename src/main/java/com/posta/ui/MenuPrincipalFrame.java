@@ -11,9 +11,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// Dashboard principal (RF02). Se abre maximizado y muestra los modulos dentro
-// de un area central que cambia segun la opcion elegida en el menu lateral, en
-// lugar de abrir una ventana emergente por cada seccion.
+// Dashboard principal (RF02). Se abre maximizado y cambia el contenido del area
+// central segun la opcion del menu lateral, en vez de abrir una ventana por seccion.
 public class MenuPrincipalFrame extends JFrame {
 
     private static final Color COLOR_BARRA = new Color(0x2C3E50);
@@ -125,7 +124,6 @@ public class MenuPrincipalFrame extends JFrame {
         }
     }
 
-    // Reemplaza el contenido central por el panel indicado.
     private void mostrar(JComponent panel) {
         contenido.removeAll();
         contenido.add(panel, BorderLayout.CENTER);

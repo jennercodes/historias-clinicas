@@ -8,7 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-// Busqueda de pacientes por DNI o por nombre/apellidos (RF07). Panel del dashboard.
+// Busqueda de pacientes por DNI o nombre (RF07).
 public class BuscarPacientePanel extends JPanel {
 
     private final transient Contexto contexto;

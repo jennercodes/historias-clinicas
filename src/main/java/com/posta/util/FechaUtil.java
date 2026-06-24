@@ -14,7 +14,7 @@ public final class FechaUtil {
     private FechaUtil() {
     }
 
-    // Devuelve la fecha o null si el texto no tiene el formato esperado.
+    // null si el texto no tiene un formato valido.
     public static LocalDate parsear(String texto) {
         if (texto == null || texto.isBlank()) {
             return null;

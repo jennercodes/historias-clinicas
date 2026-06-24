@@ -63,8 +63,7 @@ public class AtencionService {
         return resultado;
     }
 
-    // Siguiente id de atencion: uno mas que el mayor id existente en todas las
-    // historias (ids globalmente unicos para facilitar los reportes).
+    // Siguiente id de atencion: mayor existente + 1 (ids globales para los reportes).
     private int siguienteIdAtencion() {
         int maximo = 0;
         for (HistoriaClinica historia : repositorioHistoria.listar()) {

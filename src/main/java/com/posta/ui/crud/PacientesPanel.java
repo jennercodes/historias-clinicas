@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.LocalDate;
 
-// Gestion de pacientes (RF03) con busqueda por nombre (RF07). Panel del dashboard.
+// Gestion de pacientes (RF03) con busqueda por nombre (RF07).
 public class PacientesPanel extends JPanel {
 
     private final transient Contexto contexto;

@@ -6,10 +6,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-// Historia clinica de un paciente. Clave natural: id.
-// El paciente se referencia por id. Las atenciones se guardan en una lista
-// doblemente enlazada para poder recorrer el historial en ambos sentidos
-// (marco teorico 2.2.8).
+// Clave natural: id. Las atenciones se guardan en una lista doblemente enlazada
+// para recorrer el historial en ambos sentidos (marco teorico 2.2.8).
 public class HistoriaClinica implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,7 +31,6 @@ public class HistoriaClinica implements Serializable {
         this.atenciones = new ListaDoble<>();
     }
 
-    // Agrega una atencion al final del historial.
     public void agregarAtencion(Atencion atencion) {
         atenciones.insertarFinal(atencion);
     }

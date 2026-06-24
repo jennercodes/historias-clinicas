@@ -7,8 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Optional;
 
-// Pantalla de acceso (RF01). Valida las credenciales con AuthService y, si son
-// correctas, abre el menu principal.
+// Pantalla de acceso (RF01).
 public class LoginFrame extends JFrame {
 
     private final transient Contexto contexto;

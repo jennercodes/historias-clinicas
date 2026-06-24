@@ -5,8 +5,7 @@ import com.posta.repository.RepositorioUsuario;
 
 import java.util.Optional;
 
-// Autenticacion de usuarios (RF01). Valida usuario y clave contra el
-// repositorio de usuarios.
+// Autenticacion de usuarios (RF01).
 public class AuthService {
 
     private final RepositorioUsuario repositorio;
@@ -15,7 +14,6 @@ public class AuthService {
         this.repositorio = repositorio;
     }
 
-    // Devuelve el usuario autenticado si las credenciales son correctas.
     public Optional<Usuario> login(String usuario, String clave) {
         Usuario encontrado = repositorio.buscarPorUsuario(usuario);
         if (encontrado != null && encontrado.getClave().equals(clave)) {

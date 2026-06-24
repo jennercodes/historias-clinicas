@@ -24,18 +24,12 @@ public class ArregloDinamico<T> implements Iterable<T>, Serializable {
         this.tamano = 0;
     }
 
-    // ---------------------------------------------------------------------
-    // Insercion
-    // ---------------------------------------------------------------------
-
-    /** Agrega un elemento al final del arreglo. */
     public void agregar(T elemento) {
         asegurarCapacidad(tamano + 1);
         elementos[tamano] = elemento;
         tamano++;
     }
 
-    /** Inserta un elemento en la posicion indicada, desplazando el resto. */
     public void insertar(int indice, T elemento) {
         validarIndiceParaInsertar(indice);
         asegurarCapacidad(tamano + 1);
@@ -46,17 +40,12 @@ public class ArregloDinamico<T> implements Iterable<T>, Serializable {
         tamano++;
     }
 
-    // ---------------------------------------------------------------------
-    // Acceso y actualizacion
-    // ---------------------------------------------------------------------
-
     @SuppressWarnings("unchecked")
     public T obtener(int indice) {
         validarIndice(indice);
         return (T) elementos[indice];
     }
 
-    /** Reemplaza el elemento en la posicion indicada y devuelve el anterior. */
     @SuppressWarnings("unchecked")
     public T actualizar(int indice, T elemento) {
         validarIndice(indice);
@@ -65,11 +54,6 @@ public class ArregloDinamico<T> implements Iterable<T>, Serializable {
         return anterior;
     }
 
-    // ---------------------------------------------------------------------
-    // Eliminacion
-    // ---------------------------------------------------------------------
-
-    /** Elimina el elemento en la posicion indicada y lo devuelve. */
     @SuppressWarnings("unchecked")
     public T eliminar(int indice) {
         validarIndice(indice);
@@ -82,10 +66,7 @@ public class ArregloDinamico<T> implements Iterable<T>, Serializable {
         return eliminado;
     }
 
-    /**
-     * Elimina la primera aparicion del elemento (segun equals).
-     * @return true si se elimino algo
-     */
+    // Elimina la primera coincidencia segun equals.
     public boolean eliminarElemento(T elemento) {
         int indice = indiceDe(elemento);
         if (indice == -1) {
@@ -102,11 +83,6 @@ public class ArregloDinamico<T> implements Iterable<T>, Serializable {
         tamano = 0;
     }
 
-    // ---------------------------------------------------------------------
-    // Busqueda y comparacion
-    // ---------------------------------------------------------------------
-
-    /** Indice de la primera aparicion del elemento (segun equals) o -1. */
     public int indiceDe(T elemento) {
         for (int i = 0; i < tamano; i++) {
             if (sonIguales(elementos[i], elemento)) {
@@ -120,7 +96,6 @@ public class ArregloDinamico<T> implements Iterable<T>, Serializable {
         return indiceDe(elemento) != -1;
     }
 
-    /** Devuelve el primer elemento que cumple el criterio, o null. */
     @SuppressWarnings("unchecked")
     public T buscar(Criterio<T> criterio) {
         for (int i = 0; i < tamano; i++) {
@@ -132,7 +107,6 @@ public class ArregloDinamico<T> implements Iterable<T>, Serializable {
         return null;
     }
 
-    /** Indice del primer elemento que cumple el criterio, o -1. */
     @SuppressWarnings("unchecked")
     public int indiceDe(Criterio<T> criterio) {
         for (int i = 0; i < tamano; i++) {
@@ -143,7 +117,6 @@ public class ArregloDinamico<T> implements Iterable<T>, Serializable {
         return -1;
     }
 
-    /** Devuelve un nuevo arreglo con todos los elementos que cumplen el criterio. */
     @SuppressWarnings("unchecked")
     public ArregloDinamico<T> filtrar(Criterio<T> criterio) {
         ArregloDinamico<T> resultado = new ArregloDinamico<>();
@@ -156,11 +129,7 @@ public class ArregloDinamico<T> implements Iterable<T>, Serializable {
         return resultado;
     }
 
-    // ---------------------------------------------------------------------
-    // Copia
-    // ---------------------------------------------------------------------
-
-    /** Copia superficial del arreglo (mismas referencias de elementos). */
+    // Copia superficial: mismas referencias de elementos.
     public ArregloDinamico<T> clonar() {
         ArregloDinamico<T> copia = new ArregloDinamico<>(Math.max(tamano, CAPACIDAD_INICIAL));
         for (int i = 0; i < tamano; i++) {
@@ -170,10 +139,6 @@ public class ArregloDinamico<T> implements Iterable<T>, Serializable {
         return copia;
     }
 
-    // ---------------------------------------------------------------------
-    // Estado
-    // ---------------------------------------------------------------------
-
     public int tamano() {
         return tamano;
     }
@@ -181,10 +146,6 @@ public class ArregloDinamico<T> implements Iterable<T>, Serializable {
     public boolean estaVacio() {
         return tamano == 0;
     }
-
-    // ---------------------------------------------------------------------
-    // Recorrido
-    // ---------------------------------------------------------------------
 
     @Override
     public Iterator<T> iterator() {
@@ -206,10 +167,6 @@ public class ArregloDinamico<T> implements Iterable<T>, Serializable {
             }
         };
     }
-
-    // ---------------------------------------------------------------------
-    // Apoyo interno
-    // ---------------------------------------------------------------------
 
     private void asegurarCapacidad(int requerida) {
         if (requerida <= elementos.length) {

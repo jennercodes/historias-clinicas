@@ -3,19 +3,17 @@ package com.posta.repository;
 import com.posta.datastructures.ListaSimple;
 import com.posta.model.HistoriaClinica;
 
-// Repositorio de historias clinicas, respaldado por una lista enlazada simple
-// porque la cantidad de historias crece dinamicamente (marco teorico 2.2.6).
-//
-// Cada HistoriaClinica contiene a su vez la ListaDoble de atenciones, de modo
-// que al persistir la lista se guarda tambien todo el historial.
+// Respaldado por una lista enlazada simple porque la cantidad de historias crece
+// dinamicamente (marco teorico 2.2.6). Cada HistoriaClinica contiene su ListaDoble
+// de atenciones, asi que al persistir la lista se guarda tambien el historial.
 public class RepositorioHistoria extends RepositorioBase<ListaSimple<HistoriaClinica>> {
 
     public RepositorioHistoria() {
         super("historias.dat", ListaSimple::new);
     }
 
-    // Devuelve la lista interna (las historias son objetos vivos que la UI
-    // modifica al agregar atenciones; luego se persiste con guardarCambios).
+    // Lista interna: las historias son objetos vivos que la UI modifica (luego se
+    // persiste con guardarCambios).
     public ListaSimple<HistoriaClinica> listar() {
         return datos;
     }
@@ -45,8 +43,8 @@ public class RepositorioHistoria extends RepositorioBase<ListaSimple<HistoriaCli
         return historia;
     }
 
-    // Persiste tras modificar en memoria una historia ya almacenada
-    // (por ejemplo, al agregarle una nueva atencion).
+    // Persiste tras modificar en memoria una historia ya almacenada (p.ej. al
+    // agregarle una atencion).
     public void guardarCambios() {
         persistir();
     }

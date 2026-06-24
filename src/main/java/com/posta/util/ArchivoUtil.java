@@ -3,9 +3,8 @@ package com.posta.util;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-// Resuelve las rutas de los archivos de datos. El directorio base es "data"
-// por defecto, pero puede cambiarse (por ejemplo, en las pruebas para usar
-// un directorio temporal) mediante setDirectorioBase.
+// Rutas de los archivos de datos. El directorio base es configurable (los tests
+// lo apuntan a un directorio temporal).
 public final class ArchivoUtil {
 
     private static Path directorioBase =
@@ -22,7 +21,6 @@ public final class ArchivoUtil {
         directorioBase = dir;
     }
 
-    // Ruta de un archivo dentro del directorio de datos.
     public static Path rutaDatos(String nombreArchivo) {
         return directorioBase.resolve(nombreArchivo);
     }

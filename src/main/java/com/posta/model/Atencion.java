@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-// Atencion medica registrada dentro de una historia clinica.
-// Referencia a medico y especialidad por id (no por objeto) para no duplicar
-// datos al persistir. Es el nodo logico de la ListaDoble del historial.
+// Se almacena en la ListaDoble del historial. Referencia a medico y especialidad
+// por id (no por objeto) para no duplicar datos al persistir.
 public class Atencion implements Serializable {
 
     private static final long serialVersionUID = 1L;

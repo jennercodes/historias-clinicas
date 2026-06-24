@@ -5,7 +5,6 @@ import com.posta.model.Usuario;
 import javax.swing.*;
 import java.awt.*;
 
-// Panel de inicio del dashboard: bienvenida y resumen de registros.
 public class InicioPanel extends JPanel {
 
     public InicioPanel(Contexto contexto, Usuario usuario) {

@@ -3,8 +3,7 @@ package com.posta.repository;
 import com.posta.model.Rol;
 import com.posta.model.Usuario;
 
-// Repositorio de usuarios del sistema. Siembra un administrador por defecto
-// la primera vez (cuando aun no existe el archivo de datos).
+// Siembra un administrador por defecto la primera vez.
 public class RepositorioUsuario extends RepositorioArreglo<Usuario> {
 
     public RepositorioUsuario() {

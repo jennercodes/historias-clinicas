@@ -3,7 +3,7 @@ package com.posta.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-// Usuario del sistema. Clave natural: nombre de usuario.
+// Clave natural: usuario.
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;

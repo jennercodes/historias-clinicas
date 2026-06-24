@@ -5,9 +5,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-// Item del menu lateral del dashboard. Se pinta a mano (sobre un JLabel) para
-// tener control total del color, el hover y el estado activo, independiente del
-// look & feel del sistema.
+// Item del menu lateral, pintado a mano sobre un JLabel para controlar color,
+// hover y estado activo independiente del look & feel del sistema.
 public class BotonNavegacion extends JLabel {
 
     public static final Color FONDO = new Color(0x2C3E50);

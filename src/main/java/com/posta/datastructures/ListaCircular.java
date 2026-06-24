@@ -8,7 +8,7 @@ public class ListaCircular<T> implements Iterable<T>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Nodo<T> ultimo; // referencia al ultimo nodo; ultimo.siguiente = cabeza
+    private Nodo<T> ultimo; // ultimo.siguiente apunta a la cabeza (invariante circular)
     private int tamano;
 
     public ListaCircular() {
@@ -16,21 +16,20 @@ public class ListaCircular<T> implements Iterable<T>, Serializable {
         this.tamano = 0;
     }
 
-    /** Agrega un elemento al final del ciclo. */
     public void agregar(T dato) {
         Nodo<T> nuevo = new Nodo<>(dato);
         if (ultimo == null) {
             nuevo.setSiguiente(nuevo); // se apunta a si mismo
             ultimo = nuevo;
         } else {
-            nuevo.setSiguiente(ultimo.getSiguiente()); // apunta a la cabeza
+            nuevo.setSiguiente(ultimo.getSiguiente()); // nuevo -> cabeza
             ultimo.setSiguiente(nuevo);
             ultimo = nuevo;
         }
         tamano++;
     }
 
-    /** Elimina la primera aparicion del dato (segun equals). */
+    // Elimina la primera coincidencia segun equals.
     public boolean eliminar(T dato) {
         if (ultimo == null) {
             return false;
@@ -40,8 +39,7 @@ public class ListaCircular<T> implements Iterable<T>, Serializable {
         for (int i = 0; i < tamano; i++) {
             if (sonIguales(actual.getDato(), dato)) {
                 if (actual == ultimo && actual.getSiguiente() == actual) {
-                    // unico elemento
-                    ultimo = null;
+                    ultimo = null; // unico elemento
                 } else {
                     anterior.setSiguiente(actual.getSiguiente());
                     if (actual == ultimo) {
@@ -79,7 +77,8 @@ public class ListaCircular<T> implements Iterable<T>, Serializable {
         return tamano == 0;
     }
 
-    /** Recorrido acotado al numero de elementos (una vuelta completa). */
+    // Recorrido acotado al numero de elementos (una vuelta), para no entrar en
+    // un bucle infinito sobre el ciclo.
     @Override
     public Iterator<T> iterator() {
         return new Iterator<>() {

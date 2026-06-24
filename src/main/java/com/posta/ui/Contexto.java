@@ -3,9 +3,8 @@ package com.posta.ui;
 import com.posta.repository.*;
 import com.posta.service.*;
 
-// Contexto de la aplicacion: crea una unica instancia de cada repositorio y
-// servicio para que todas las ventanas compartan las mismas estructuras de
-// datos en memoria (y, por lo tanto, los mismos datos).
+// Instancia unica de cada repositorio y servicio, compartida por todas las
+// ventanas (misma data en memoria).
 public class Contexto {
 
     public final RepositorioUsuario usuarios = new RepositorioUsuario();

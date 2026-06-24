@@ -2,11 +2,8 @@ package com.posta.repository;
 
 import com.posta.datastructures.ArregloDinamico;
 
-// Base de los repositorios respaldados por un ArregloDinamico, con operaciones
-// CRUD por id autoincremental. Cada subclase indica como leer y asignar el id
-// de su entidad.
-//
-// @param <T> tipo de entidad almacenada
+// Repositorios respaldados por un ArregloDinamico, con CRUD por id
+// autoincremental. Cada subclase indica como leer y asignar el id de su entidad.
 public abstract class RepositorioArreglo<T> extends RepositorioBase<ArregloDinamico<T>> {
 
     protected RepositorioArreglo(String nombreArchivo) {
@@ -17,7 +14,7 @@ public abstract class RepositorioArreglo<T> extends RepositorioBase<ArregloDinam
 
     protected abstract void asignarId(T entidad, int id);
 
-    // Copia del listado completo (no expone la estructura interna).
+    // Copia del listado (no expone la estructura interna).
     public ArregloDinamico<T> listar() {
         return datos.clonar();
     }
@@ -30,8 +27,8 @@ public abstract class RepositorioArreglo<T> extends RepositorioBase<ArregloDinam
         return datos.buscar(e -> idDe(e) == id);
     }
 
-    // Alta o actualizacion. Si la entidad no tiene id (0), se le asigna uno
-    // nuevo y se agrega; si ya tiene id, se reemplaza la existente.
+    // Alta o actualizacion: si la entidad no tiene id (0) se le asigna uno nuevo;
+    // si ya tiene id, se reemplaza la existente.
     public T guardar(T entidad) {
         if (idDe(entidad) == 0) {
             asignarId(entidad, siguienteId());
@@ -67,8 +64,7 @@ public abstract class RepositorioArreglo<T> extends RepositorioBase<ArregloDinam
         return maximo + 1;
     }
 
-    // Persiste la estructura tras una mutacion directa de una entidad ya
-    // almacenada (util cuando la UI modifica el objeto en memoria).
+    // Persiste tras modificar en memoria una entidad ya almacenada.
     public void guardarCambios() {
         persistir();
     }

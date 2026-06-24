@@ -12,14 +12,9 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.function.Supplier;
 
-// Base de los repositorios: encapsula la lectura y escritura de la estructura
-// de datos completa en un archivo mediante serializacion de objetos.
-//
-// La escritura es atomica: primero se escribe a un archivo temporal y luego se
-// renombra sobre el definitivo, de modo que un fallo a mitad de guardado no
-// corrompe los datos existentes (RNF03).
-//
-// @param <C> tipo de la estructura contenedora (ArregloDinamico, ListaSimple, ...)
+// Lee y escribe la estructura de datos completa en un archivo mediante
+// serializacion. La escritura es atomica (archivo temporal + rename) para no
+// corromper los datos ante un fallo a mitad de guardado (RNF03).
 public abstract class RepositorioBase<C extends Serializable> {
 
     private final String nombreArchivo;
@@ -36,7 +31,6 @@ public abstract class RepositorioBase<C extends Serializable> {
         return ArchivoUtil.rutaDatos(nombreArchivo);
     }
 
-    // Carga la estructura desde el archivo; si no existe, devuelve una vacia.
     @SuppressWarnings("unchecked")
     private C cargar() {
         Path archivo = archivo();
@@ -50,7 +44,6 @@ public abstract class RepositorioBase<C extends Serializable> {
         }
     }
 
-    // Guarda la estructura completa de forma atomica.
     protected final void persistir() {
         Path archivo = archivo();
         try {

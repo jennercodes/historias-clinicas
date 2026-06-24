@@ -3,7 +3,7 @@ package com.posta.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-// Especialidad medica. Clave natural: id (generado por el repositorio).
+// Clave natural: id.
 public class Especialidad implements Serializable {
 
     private static final long serialVersionUID = 1L;

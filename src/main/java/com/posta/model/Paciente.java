@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-// Paciente de la posta. Clave natural: DNI.
+// Clave natural: DNI.
 public class Paciente implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -18,10 +18,6 @@ public class ListaDoble<T> implements Iterable<T>, Serializable {
         this.tamano = 0;
     }
 
-    // ---------------------------------------------------------------------
-    // Insercion
-    // ---------------------------------------------------------------------
-
     public void insertarInicio(T dato) {
         NodoDoble<T> nuevo = new NodoDoble<>(dato);
         if (cabeza == null) {
@@ -46,10 +42,6 @@ public class ListaDoble<T> implements Iterable<T>, Serializable {
         tamano++;
     }
 
-    // ---------------------------------------------------------------------
-    // Acceso
-    // ---------------------------------------------------------------------
-
     public T obtener(int indice) {
         return nodoEn(indice).getDato();
     }
@@ -68,11 +60,7 @@ public class ListaDoble<T> implements Iterable<T>, Serializable {
         return cola.getDato();
     }
 
-    // ---------------------------------------------------------------------
-    // Eliminacion
-    // ---------------------------------------------------------------------
-
-    /** Elimina la primera aparicion del dato (segun equals). */
+    // Elimina la primera coincidencia segun equals.
     public boolean eliminar(T dato) {
         NodoDoble<T> actual = cabeza;
         while (actual != null) {
@@ -90,10 +78,6 @@ public class ListaDoble<T> implements Iterable<T>, Serializable {
         cola = null;
         tamano = 0;
     }
-
-    // ---------------------------------------------------------------------
-    // Busqueda
-    // ---------------------------------------------------------------------
 
     public boolean contiene(T dato) {
         NodoDoble<T> actual = cabeza;
@@ -129,10 +113,6 @@ public class ListaDoble<T> implements Iterable<T>, Serializable {
         return resultado;
     }
 
-    // ---------------------------------------------------------------------
-    // Estado
-    // ---------------------------------------------------------------------
-
     public int tamano() {
         return tamano;
     }
@@ -140,10 +120,6 @@ public class ListaDoble<T> implements Iterable<T>, Serializable {
     public boolean estaVacia() {
         return tamano == 0;
     }
-
-    // ---------------------------------------------------------------------
-    // Recorrido hacia adelante (cabeza -> cola)
-    // ---------------------------------------------------------------------
 
     @Override
     public Iterator<T> iterator() {
@@ -167,10 +143,8 @@ public class ListaDoble<T> implements Iterable<T>, Serializable {
         };
     }
 
-    /**
-     * Iterador en sentido inverso (cola -> cabeza), util para mostrar el
-     * historial de atenciones de la mas reciente a la mas antigua.
-     */
+    // Recorrido inverso (cola -> cabeza), para mostrar el historial de
+    // atenciones de la mas reciente a la mas antigua.
     public Iterable<T> enReversa() {
         return () -> new Iterator<>() {
             private NodoDoble<T> actual = cola;
@@ -191,10 +165,6 @@ public class ListaDoble<T> implements Iterable<T>, Serializable {
             }
         };
     }
-
-    // ---------------------------------------------------------------------
-    // Apoyo interno
-    // ---------------------------------------------------------------------
 
     private void desenlazar(NodoDoble<T> nodo) {
         NodoDoble<T> anterior = nodo.getAnterior();
@@ -222,7 +192,7 @@ public class ListaDoble<T> implements Iterable<T>, Serializable {
             throw new IndexOutOfBoundsException("Indice " + indice + " fuera de rango [0, " + tamano + ")");
         }
         NodoDoble<T> actual;
-        // Recorre desde el extremo mas cercano al indice
+        // Recorre desde el extremo mas cercano al indice.
         if (indice < tamano / 2) {
             actual = cabeza;
             for (int i = 0; i < indice; i++) {

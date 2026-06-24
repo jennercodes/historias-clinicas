@@ -3,7 +3,6 @@ package com.posta.repository;
 import com.posta.datastructures.ArregloDinamico;
 import com.posta.model.Medico;
 
-// Repositorio de medicos.
 public class RepositorioMedico extends RepositorioArreglo<Medico> {
 
     public RepositorioMedico() {
@@ -27,7 +26,6 @@ public class RepositorioMedico extends RepositorioArreglo<Medico> {
         return datos.buscar(m -> dni.equals(m.getDni()));
     }
 
-    // Medicos de una especialidad (para reportes y combos de la UI).
     public ArregloDinamico<Medico> listarPorEspecialidad(int especialidadId) {
         return datos.filtrar(m -> m.getEspecialidadId() == especialidadId);
     }

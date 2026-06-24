@@ -2,8 +2,7 @@ package com.posta.repository;
 
 import com.posta.model.Especialidad;
 
-// Repositorio de especialidades medicas. Siembra un conjunto base la primera
-// vez que se ejecuta la aplicacion.
+// Siembra un conjunto base de especialidades la primera vez.
 public class RepositorioEspecialidad extends RepositorioArreglo<Especialidad> {
 
     public RepositorioEspecialidad() {

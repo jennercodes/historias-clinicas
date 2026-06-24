@@ -3,8 +3,8 @@ package com.posta.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-// Medico de la posta. Clave natural: DNI.
-// La especialidad se referencia por id para evitar duplicar el objeto al persistir.
+// Clave natural: DNI. La especialidad se referencia por id (no por objeto) para
+// no duplicarla al persistir.
 public class Medico implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -8,7 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-// Gestion de especialidades medicas (RF05). Panel incrustado en el dashboard.
+// Gestion de especialidades (RF05).
 public class EspecialidadesPanel extends JPanel {
 
     private final transient Contexto contexto;

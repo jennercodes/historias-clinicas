@@ -13,12 +13,10 @@ public class BusquedaService {
         this.repositorio = repositorio;
     }
 
-    // Busqueda exacta por DNI; null si no existe.
     public Paciente porDni(String dni) {
         return repositorio.buscarPorDni(dni);
     }
 
-    // Coincidencia parcial sobre nombres o apellidos (sin distinguir mayusculas).
     public ArregloDinamico<Paciente> porNombre(String texto) {
         return repositorio.buscarPorNombre(texto);
     }

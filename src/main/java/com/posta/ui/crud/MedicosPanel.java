@@ -10,7 +10,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-// Gestion de medicos (RF04). Panel incrustado en el dashboard.
+// Gestion de medicos (RF04).
 public class MedicosPanel extends JPanel {
 
     private final transient Contexto contexto;
