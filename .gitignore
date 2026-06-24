@@ -2,6 +2,9 @@
 target/
 *.class
 
+# Artefacto generado por el maven-shade-plugin
+dependency-reduced-pom.xml
+
 # Datos de runtime generados por la app
 data/
 *.dat
