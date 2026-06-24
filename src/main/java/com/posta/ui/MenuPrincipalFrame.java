@@ -4,7 +4,6 @@ import com.posta.model.Usuario;
 import com.posta.ui.crud.EspecialidadesPanel;
 import com.posta.ui.crud.MedicosPanel;
 import com.posta.ui.crud.PacientesPanel;
-import com.posta.util.UiUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -93,8 +92,9 @@ public class MenuPrincipalFrame extends JFrame {
         agregarItem(lateral, "Medicos", () -> mostrar(new MedicosPanel(contexto)));
         agregarItem(lateral, "Especialidades", () -> mostrar(new EspecialidadesPanel(contexto)));
         agregarItem(lateral, "Buscar paciente", () -> mostrar(new BuscarPacientePanel(contexto)));
-        agregarItemPendiente(lateral, "Atenciones e historia");
-        agregarItemPendiente(lateral, "Reportes");
+        agregarItem(lateral, "Atenciones e historia", () -> mostrar(new AtencionPanel(contexto)));
+        agregarItem(lateral, "Reporte por medico", () -> mostrar(new ReporteMedicoPanel(contexto)));
+        agregarItem(lateral, "Reporte por especialidad", () -> mostrar(new ReporteEspecialidadPanel(contexto)));
 
         return lateral;
     }
@@ -105,15 +105,6 @@ public class MenuPrincipalFrame extends JFrame {
             seleccionar(boton);
             accion.run();
         });
-        navegacion.add(boton);
-        lateral.add(boton);
-    }
-
-    // Item de un modulo aun no implementado: muestra un aviso sin cambiar la
-    // seccion activa.
-    private void agregarItemPendiente(JPanel lateral, String texto) {
-        BotonNavegacion boton = new BotonNavegacion(texto);
-        boton.setAccion(this::pendiente);
         navegacion.add(boton);
         lateral.add(boton);
     }
@@ -129,10 +120,6 @@ public class MenuPrincipalFrame extends JFrame {
         contenido.add(panel, BorderLayout.CENTER);
         contenido.revalidate();
         contenido.repaint();
-    }
-
-    private void pendiente() {
-        UiUtil.info(this, "Modulo disponible en la siguiente entrega de la Fase 5.");
     }
 
     private void cerrarSesion() {
